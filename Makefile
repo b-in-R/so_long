@@ -9,8 +9,7 @@ CFLAGS = -Wall -Wextra -O3 #-Werror
 MLX_DIR = mlx_linux
 LIBFT_DIR = libft
 
-SRCS = init_window.c ft_put_img.c create_trgb.c # exercices image
-# hooking.c \
+SRCS = hooking.c init_window.c ft_put_img.c create_trgb.c # exercices image
 
 
 OBJS = $(SRCS:.c=.o)

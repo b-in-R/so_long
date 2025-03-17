@@ -7,9 +7,10 @@
 # include "./libft/libft.h"
 # include "./mlx_linux/mlx.h"
 
-#include <X11/keysym.h>
+# include <X11/keysym.h>
+# include <stdio.h>
 
-typedef struct	s_data 
+typedef struct s_data
 {
 	void	*img;
 	char	*addr;
@@ -31,11 +32,15 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 
 
 // create_trgb.c -> exercices
-int	create_trbg(int t, int r, int g, int b);
-int	get_t(int trgb);
-int	get_r(int trgb);
-int	get_g(int trgb);
-int	get_b(int trgb);
+int		create_trbg(int t, int r, int g, int b);
+int		get_t(int trgb);
+int		get_r(int trgb);
+int		get_g(int trgb);
+int		get_b(int trgb);
+
+// hooking.c
+int		mouse_hook(int button, t_vars *param);
+//int		key_hook(int keycode, t_vars *vars); -- deplace
 
 
 #endif

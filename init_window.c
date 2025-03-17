@@ -2,9 +2,6 @@
 
 #include "so_long.h"
 
-#include <X11/keysym.h>// keycodes
-
-
 //-------------------------pour fermeture fenetre------------------------
 int close_window(void *param)
 {
@@ -17,17 +14,26 @@ int close_window(void *param)
 int	handle_keypress(int keycode, void *param)
 {
 	static int		img_shown = 0;
-	t_vars			*vars = ((t_data **)param)[0];
-	t_data			*img = ((t_data **)param)[1];
+	void			**params = (void **)param;
+	t_vars			*vars = (t_vars *)params[0];
+	t_data			*img = (t_data *)params[1];
 
 	if (keycode == XK_Escape)
+	{
+		printf("Exit\n");
 		close_window(vars);
+	}
 	if (keycode == XK_space && img_shown == 0)
 	{
 		put_img(img, 1);
 		mlx_put_image_to_window(vars->mlx, vars->win, img->img, 0, 0);
 		img_shown = 1;
 	}
+	if (keycode == XK_space)
+		printf("space\n");
+	if (keycode == XK_1)
+		printf("1\n");
+
 	return (0);
 }
 //------------------------------------------------------------------------
@@ -49,16 +55,11 @@ int	main(void)
 	param[0] = &vars;
 	param[1] = &img;
 
+
+//	---- print entry & close window ----
 	mlx_key_hook(vars.win, handle_keypress, param);
-	//put_img(&img, 1);
-	//mlx_put_image_to_window(vars.mlx, vars.win, img.img, 0, 0);
-
-
-//----------------------pour fermeture fenetre---------------
-	mlx_hook(vars.win, 17, 0, close_window, &vars);//croix
-//	mlx_key_hook(vars.win, handle_keypress, NULL);//esc
-//-----------------------------------------------------------
-
+	mlx_mouse_hook(vars.win, mouse_hook, &vars);
+	mlx_hook(vars.win, 17, 0, close_window, &vars);
 
 	mlx_loop(vars.mlx);
 

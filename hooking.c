@@ -2,8 +2,12 @@
 
 #include "so_long.h"
 
+//	---- place dans handle_keypress (init_window.c) ----
+/*
 int	key_hook(int keycode, t_vars *vars)
 {
+	(void)vars;
+	
 	if (keycode == XK_space)
 		printf("space\n");
 	if (keycode == XK_1)
@@ -15,14 +19,17 @@ int	key_hook(int keycode, t_vars *vars)
 	}
 	return (0);
 }
+*/
 
 int	mouse_hook(int button, t_vars *param)
 {
+	(void)param;
+
 	if (button == 1)
 		printf("mouse left\n");
 	return (0);
 }
-
+/*
 int	main(void)
 {
 	t_vars	vars;
@@ -36,3 +43,4 @@ int	main(void)
 	
 	return (0);
 }
+*/

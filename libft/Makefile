@@ -11,8 +11,6 @@ RM = rm -f
 CFLAGS = -Wall -Wextra -Werror
 
 SRCS = $(wildcard *.c)
-#		 ft_atoi.c \
-		ft_printf.c ft_printf_nbrs.c ft_printf_write.c \
 
 OBJS = $(SRCS:.c=.o)
 
