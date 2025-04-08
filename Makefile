@@ -8,22 +8,23 @@ CFLAGS = -Wall -Wextra -O3 #-Werror
 
 MLX_DIR = mlx_linux
 LIBFT_DIR = libft
+SRC_DIR = exercice
 
-SRCS = hooking.c init_window.c ft_put_img.c create_trgb.c # exercices image
-
+SRCS = $(wildcard $(SRC_DIR)/*.c)
+# $(wildcard *.c)
 
 OBJS = $(SRCS:.c=.o)
 
 MLX_FLAGS = -L$(MLX_DIR) -lmlx -L/usr/lib -lXext -lX11 -lm -lbsd -lz
 LIBFT_FLAGS = -L$(LIBFT_DIR) -lft
-INCLUDES = -I$(LIBFT_DIR) -I$(MLX_DIR) -I/usr/include
+INCLUDES = -I$(LIBFT_DIR) -I$(MLX_DIR) -I$(SRC_DIR) -I/usr/include
 
 all: $(NAME)
 
 $(NAME): $(OBJS) $(LIBFT_DIR)/libft.a
 	$(CC) $(CFLAGS) $(INCLUDES) $(OBJS) $(MLX_FLAGS) $(LIBFT_FLAGS) -o $(NAME)
 
-%.o: %.c
+$(SRC_DIR)/%.o: $(SRC_DIR)/%.c
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 $(LIBFT_DIR)/libft.a:

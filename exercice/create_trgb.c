@@ -1,5 +1,5 @@
 
-#include "so_long.h"
+#include "exercice.h"
 
 //------------------------------------
 // 	appel: create_trbg(0, 255, 255, 255);

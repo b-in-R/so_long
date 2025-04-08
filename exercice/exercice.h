@@ -4,8 +4,8 @@
 
 # define SO_LONG_H
 
-# include "./libft/libft.h"
-# include "./mlx_linux/mlx.h"
+# include "../libft/libft.h"
+# include "../mlx_linux/mlx.h"
 
 # include <X11/keysym.h>
 # include <stdio.h>

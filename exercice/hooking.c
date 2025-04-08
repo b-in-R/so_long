@@ -1,6 +1,6 @@
 
 
-#include "so_long.h"
+#include "exercice.h"
 
 //	---- place dans handle_keypress (init_window.c) ----
 /*

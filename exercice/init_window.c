@@ -1,6 +1,6 @@
 
 
-#include "so_long.h"
+#include "exercice.h"
 
 //-------------------------pour fermeture fenetre------------------------
 int close_window(void *param)

@@ -1,5 +1,5 @@
 
-#include "so_long.h"
+#include "exercice.h"
 
 
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
@@ -72,7 +72,7 @@ int	put_img(t_data *img, int event)
 	}
 
 
-	do_square(img, 350, 350, create_trbg(0, 102, 48, 191), 50);
+	do_square(img, 390, 350, create_trbg(0, 102, 48, 191), 50);
 	/*
 	// exemple pixel couleur:
 
