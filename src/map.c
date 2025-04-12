@@ -70,14 +70,19 @@ void	init_vars(t_check *m)
 {
 	m->i = 0;
 	m->j = 0;
+	m->check_i_p = 0;
+	m->check_j_p = 0;
+	m->check_i_e = 0;
+	m->check_j_e = 0;
+	m->n_coin = 0;
 	m->player = 0;
 	m->exit = 0;
 	m->wall = 0;
-	m->tot = 0;// nombre cases total
-	m->n = 0;// nombre cases remplies -> peut etre pas besoin, gere par if (map[i][j] != 'P' && ...)
-	m->lenght = 0;// longueur map
-	m->height = 0;// hauteur map
-	m->result_err = 0;// erreur si 1
+	m->tot = 0;
+	m->n_ground = 0;
+	m->lenght = 0;
+	m->height = 0;
+	m->result_err = 0;
 }
 
 
@@ -109,9 +114,69 @@ int	check_map_size_square(char **map, t_check *m)
 	return (0);
 }
 
-void	check_path(char **map, t_game *game, t_check *m)
+void	player_exit_pos(char **map, t_check *m)
 {
+	m->i = 1;
+	while (map[m->i])
+	{
+		m->j = 0;
+		while (map[m->i][m->j] && (map[m->i][m->j] != 'P' || map[m->i][m->j] != 'E'
+				|| map[m->i][m->j] != 'C'))
+		{
+			if (map[m->i][m->j] == 'P')
+			{
+				m->check_i_p = m->i;
+				m->check_j_p = m->j;
+			}
+			else if (map[m->i][m->j] == 'E')
+			{
+				m->check_i_e = m->i;
+				m->check_j_e = m->j;
+			}
+			else if (map[m->i][m->j] == 'C')
+				(m->n_coin)++;
+			(m->j)++;
+		}
+		(m->i)++;
+	}
+	m->i = 0;//a voir si inutile (set dans path_recursive)
+	m->j = 0;//a voir si inutile (set dans path_recursive)
+}
+
+
+int	path_recursive(char **map, t_check *m)// ou pas recursif
+{
+	m->i = m->check_i_p;
+	m->j = m->check_j_p;
+	while (m->n_coin > 0 && map[m->i])// a voir si on passe a travers exit si pas de coin
+	{
+		// reset m->j ??
+		while (m->n_coin > 0 && map[m->i][m->j])
+		{
+			if (map[m->i][m->j] == 'C')
+			{
+				(m->n_coin)--;
+			}
+			(m->j)++;// a faire si c'est wall, retour etape precedente
+		}
+		(m->i)++;// a faire si c'est wall, retour etape precedente
+	}
+
+}
+
+
+
+int	check_path(char **map, t_game *game, t_check *m)
+{
+	player_exit_pos(map, m);// definit pos player et exit
+	if (path_recursive(map, m))
+		exit_error("path player - exit", 1, game);
 	
+
+
+
+
+	return (0);
 }
 
 
@@ -131,15 +196,18 @@ int	check_map(char **map, t_game *game)
 					|| map[m.i][m.lenght] != '1')
 				exit_error("check_map - bord erreur", 1, game);
 			else if (map[m.i][m.j] == 'P')
-				m.player++;
+				(m.player)++;
 			else if (map[m.i][m.j] == 'E')
-				m.exit++;
-			if (m.player > 1 || m.exit > 1)
-				exit_error("player > 1 || exit > 1", 1, map);
+				(m.exit)++;
+			else if (map[m.i][m.j] == '0')
+				(m.n_ground)++;
+			if (m.player != 1 || m.exit != 1)
+				exit_error("player != 1 || exit != 1", 1, map);
 			m.j++;
 		}
 		m.i++;
 	}
-	check_path(map, game, &m);
+	if (check_path(map, game, &m))
+		exit_error("check_path", 1, map);
 	return (m.result_err);
 }

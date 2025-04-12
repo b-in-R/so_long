@@ -37,14 +37,19 @@ typedef struct s_check
 {
 	int	i;
 	int	j;
+	int	check_i_p;// position x player
+	int	check_j_p;// position y player
+	int	check_i_e;// position x exit
+	int	check_j_e;// position y exit
+	int	n_coin;// position x coin
 	int	player;
 	int	exit;
 	int	wall;
 	int	tot;// nombre de cases tot
-	int	n;// nombre de cases remplies -> inutile?
-	int	lenght;
-	int	height;
-	int	result_err;// erreur ou non
+	int	n_ground;// nombre de 0
+	int	lenght;// longueur map
+	int	height;// hauteur map
+	int	result_err;// erreur si 1
 
 }		t_check;
 
