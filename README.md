@@ -14,3 +14,14 @@
 
 			a faire:	- loop.c
 						- ajouter au test de base hooking et loop  	
+
+
+12.04		a voir:					- GNL si besoin des fonctions libft perso (voir si diff)
+
+
+			a faire lorsque fini:	- exit_error de check_map (map.c)
+									  --> return (1);
+									
+									- corriger texte erreurs
+
+			

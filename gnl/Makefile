@@ -1,5 +1,5 @@
 
-NAME = libft.a
+NAME = gnl.a
 
 CC = cc
 AR = ar rcs
