@@ -14,3 +14,4 @@
 							- corriger texte erreurs
 
 			
+14.04			- voir segfault

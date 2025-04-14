@@ -4,7 +4,7 @@ NAME = so_long
 
 CC = gcc
 RM = rm -f
-CFLAGS = -Wall -Wextra -O3 #-Werror
+CFLAGS = -Wall -Wextra -O3
 
 MLX_DIR = mlx_linux
 LIBFT_DIR = libft
@@ -16,23 +16,24 @@ SRCS = $(wildcard $(SRC_DIR)/*.c)
 
 OBJS = $(SRCS:.c=.o)
 
+LIBFT_A = $(LIBFT_DIR)/libft.a
+GNL_A = $(GNL_DIR)/gnl.a
+
 MLX_FLAGS = -L$(MLX_DIR) -lmlx -L/usr/lib -lXext -lX11 -lm -lbsd -lz
-LIBFT_FLAGS = -L$(LIBFT_DIR) -lft
-GNL_FLAGS = -L$(GNL_DIR) -gnl
 INCLUDES = -I$(LIBFT_DIR) -I$(GNL_DIR) -I$(MLX_DIR) -I$(SRC_DIR) -I/usr/include
 
 all: $(NAME)
 
-$(NAME): $(OBJS) $(LIBFT_DIR)/libft.a $(GNL_DIR)/gnl.a
-	$(CC) $(CFLAGS) $(INCLUDES) $(OBJS) $(MLX_FLAGS) $(LIBFT_FLAGS) $(GNL_FLAGS) -o $(NAME)
+$(NAME): $(OBJS) $(LIBFT_A) $(GNL_A)
+	$(CC) $(CFLAGS) $(INCLUDES) $(OBJS) $(GNL_A) $(LIBFT_A) $(MLX_FLAGS) -o $(NAME)
 
 $(SRC_DIR)/%.o: $(SRC_DIR)/%.c
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
-$(LIBFT_DIR)/libft.a:
+$(LIBFT_A):
 	make -C $(LIBFT_DIR)
 
-$(GNL_DIR)/gnl.a:
+$(GNL_A):
 	make -C $(GNL_DIR)
 
 clean:

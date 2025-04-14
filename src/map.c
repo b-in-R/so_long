@@ -64,8 +64,6 @@ char	**read_map(char *av)
 }
 
 
-
-
 void	init_vars(t_check *m)
 {
 	m->i = 0;
@@ -74,7 +72,8 @@ void	init_vars(t_check *m)
 	m->check_j_p = 0;
 	m->check_i_e = 0;
 	m->check_j_e = 0;
-	m->n_coin = 0;
+	m->tot_coin = 0;
+	m->check_coin = 0;
 	m->player = 0;
 	m->exit = 0;
 	m->wall = 0;
@@ -93,12 +92,13 @@ int	check_map_size_square(char **map, t_check *m)
 	int	sto_j;
 
 	i = 0;
+	j = 0;
 	sto_j = 0;
 	while (map[i])
 	{
 		j = 0;
 		if (map[i][j] != 'P' && map[i][j] != 'E' && map[i][j] != '1'
-				&& map[i][j] != '0')
+				&& map[i][j] != '0' && map[i][j] != 'C')
 			return (1);
 		while (map[i][j])
 			j++;
@@ -114,100 +114,56 @@ int	check_map_size_square(char **map, t_check *m)
 	return (0);
 }
 
-void	player_exit_pos(char **map, t_check *m)
+void	player_pos_coin(char **map, t_check *m)
 {
-	m->i = 1;
-	while (map[m->i])
+	int	i;
+	int	j;
+
+	i = 1;
+	while (map[i + 1])
+	{
+		j = 1;
+		while (map[i][j + 1])
+		{
+			if (map[i][j] == 'P')
+			{
+				m->check_i_p = i;
+				m->check_j_p = j;
+			}
+			else if (map[i][j] == 'C')
+				m->tot_coin++;
+			j++;
+		}
+		i++;
+	}
+}
+
+int	check_map(char **map, t_game *game, t_check *m)
+{
+	init_vars(m);
+	if (check_map_size_square(map, m) || m->height <= 1 || m->lenght <= 1)
+		exit_error("check_map_size_square", 1, game);
+	while (map[m->i] && m->result_err == 0)
 	{
 		m->j = 0;
-		while (map[m->i][m->j] && (map[m->i][m->j] != 'P' || map[m->i][m->j] != 'E'
-				|| map[m->i][m->j] != 'C'))
+		//
+		while (map[m->i][m->j] && m->result_err == 0)
 		{
-			if (map[m->i][m->j] == 'P')
-			{
-				m->check_i_p = m->i;
-				m->check_j_p = m->j;
-			}
-			else if (map[m->i][m->j] == 'E')
-			{
-				m->check_i_e = m->i;
-				m->check_j_e = m->j;
-			}
-			else if (map[m->i][m->j] == 'C')
-				(m->n_coin)++;
-			(m->j)++;
-		}
-		(m->i)++;
-	}
-	m->i = 0;//a voir si inutile (set dans path_recursive)
-	m->j = 0;//a voir si inutile (set dans path_recursive)
-}
-
-
-int	path_recursive(char **map, t_check *m)// ou pas recursif
-{
-	m->i = m->check_i_p;
-	m->j = m->check_j_p;
-	while (m->n_coin > 0 && map[m->i])// a voir si on passe a travers exit si pas de coin
-	{
-		// reset m->j ??
-		while (m->n_coin > 0 && map[m->i][m->j])
-		{
-			if (map[m->i][m->j] == 'C')
-			{
-				(m->n_coin)--;
-			}
-			(m->j)++;// a faire si c'est wall, retour etape precedente
-		}
-		(m->i)++;// a faire si c'est wall, retour etape precedente
-	}
-
-}
-
-
-
-int	check_path(char **map, t_game *game, t_check *m)
-{
-	player_exit_pos(map, m);// definit pos player et exit
-	if (path_recursive(map, m))
-		exit_error("path player - exit", 1, game);
-	
-
-
-
-
-	return (0);
-}
-
-
-int	check_map(char **map, t_game *game)
-{
-	t_check	m;
-
-	init_vars(&m);
-	if (check_map_size_square(map, &m) || m.height <= 1 || m.lenght <= 1)
-		exit_error("check_map_size_square", 1, game);
-	while (map[m.i] && m.result_err == 0)
-	{
-		m.j = 0;
-		while (map[m.i][m.j] && m.result_err == 0)
-		{
-			if (map[0][m.j] != '1' || map[m.i][0] != '1' || map[m.height][m.j] != '1'
-					|| map[m.i][m.lenght] != '1')
+			if (map[0][m->j] != '1' || map[m->i][0] != '1' || map[m->height - 1][m->j] != '1'
+					|| map[m->i][m->lenght - 1] != '1')
 				exit_error("check_map - bord erreur", 1, game);
-			else if (map[m.i][m.j] == 'P')
-				(m.player)++;
-			else if (map[m.i][m.j] == 'E')
-				(m.exit)++;
-			else if (map[m.i][m.j] == '0')
-				(m.n_ground)++;
-			if (m.player != 1 || m.exit != 1)
-				exit_error("player != 1 || exit != 1", 1, map);
-			m.j++;
+			else if (map[m->i][m->j] == 'P')
+				(m->player)++;
+			else if (map[m->i][m->j] == 'E')
+				(m->exit)++;
+			else if (map[m->i][m->j] == '0')
+				(m->n_ground)++;
+			m->j++;
 		}
-		m.i++;
+		//
+		m->i++;
 	}
-	if (check_path(map, game, &m))
-		exit_error("check_path", 1, map);
-	return (m.result_err);
+	if (m->player != 1 || m->exit != 1 || check_path(map, game, m))
+		exit_error("check_path", 1, game);
+	return (m->result_err);
 }
