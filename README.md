@@ -19,10 +19,12 @@
 
 
 15.04			- voir fichiers normi
+				- ajouter image autour (voir taille autorisee selon pdf)
 				- ajouter compteur graphique + terminal (voir de ou l'appel)
 				- ajouter menu (voir de ou l'appel)
 				- voir textes d'erreur
 
+				- ! validite map, si pas de coin !
 
 
 
