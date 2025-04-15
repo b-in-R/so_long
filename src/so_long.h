@@ -5,8 +5,8 @@
 # define TILE_SIZE 64
 # define MOVE_STEP 16
 # define MAX_ANIM_FRAME 4
-# define MARGIN_TOP 400
-# define MARGIN_BOTTOM 256
+# define MARGIN_TOP 200
+# define MARGIN_BOTTOM 128
 # define MARGIN_LEFT 128
 # define MARGIN_RIGHT 128
 
@@ -20,6 +20,15 @@
 # include <X11/keysym.h>
 
 # include <stdio.h>
+
+
+typedef struct s_draw
+{
+	int	x;
+	int	y;
+	int	px;
+	int	py;
+}		t_draw;
 
 typedef struct s_player
 {
@@ -42,17 +51,29 @@ typedef struct s_game
 	int			win_h;
 	int			offset_x;
 	int			offset_y;
+	int			height;
 
-	void		*img_player_still;
-	void		*img_player_jump_down;
-	void		*img_player_jump_up;
-	void		*img_player_jump_high;
-	void		*img_wall_on;
-	void		*img_wall_off;
+	void		*img_player;
+	void		*img_player_tree;
+	void		*img_wall_y;
+	void		*img_wall_y_tree;
+	void		*img_wall_n_tree;
 	void		*img_floor;
-	void		*img_exit_on;
-	void		*img_exit_off;
-	void		*img_coin;
+	void		*img_exit_y;
+	void		*img_exit_y_tree;
+	void		*img_exit_n;
+	void		*img_exit_n_tree;
+	void		*img_coin_y;
+	void		*img_coin_y_tree;
+	void		*img_coin_n;
+	void		*img_coin_n_tree;
+
+	void		*img_exit_build[5];
+	void		*img_exit_build_tree[5];
+
+	int			ex_anim_start;
+	int			ex_anim_frame;
+	int			ex_anim_timer;
 
 	char		**map;
 	int			*player_x;
@@ -105,14 +126,15 @@ int		check_path(char **map, t_game *game, t_check *m);
 void	flood_fill(char **map, t_check *m, int i, int j);
 
 // moving.c
-void	init_player(t_game *game, t_player *p, t_check *c);
-void	check_collect_exit(t_game *game, t_player *p);
-void	update_player_pos(t_game *game, t_player *p);
 void	move_up(t_game *game, t_player *p);
 void	move_down(t_game *game, t_player *p);
 void	move_left(t_game *game, t_player *p);
 void	move_right(t_game *game, t_player *p);
 
+// player.c
+void	check_collect_exit(t_game *game, t_player *p);
+void	update_player_pos(t_game *game, t_player *p);
+void	init_player(t_game *game, t_player *p, t_check *c);
 
 // utils.c
 void	exit_error(char *str, int map_free, t_game *game);
