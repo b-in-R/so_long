@@ -1,4 +1,3 @@
-
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
@@ -9,6 +8,10 @@
 # define MARGIN_BOTTOM 128
 # define MARGIN_LEFT 128
 # define MARGIN_RIGHT 128
+
+# define SPR_M "./sprites/map"
+# define SPR_C "./sprites/car"
+# define SPR_E "./sprites/exit"
 
 # include "../libft/libft.h"
 # include "../gnl/get_next_line.h"
@@ -67,9 +70,13 @@ typedef struct s_game
 	void		*img_coin_y_tree;
 	void		*img_coin_n;
 	void		*img_coin_n_tree;
-
 	void		*img_exit_build[5];
 	void		*img_exit_build_tree[5];
+
+	void		*ui_corner_topleft;
+	void		*ui_corner_topright;
+	void		*ui_corner_botleft;
+	void		*ui_corner_botright;
 
 	int			ex_anim_start;
 	int			ex_anim_frame;
@@ -78,6 +85,8 @@ typedef struct s_game
 	char		**map;
 	int			*player_x;
 	int			*player_y;
+	int			exit_x;
+	int			exit_y;
 	int			moves;
 	int			coin_collected;
 	int			coin_total;
@@ -109,21 +118,19 @@ typedef struct s_check
 // game.c
 void	game_init(t_game *game, char *map_path);
 int		handle_input(int keycode, t_game *game);
-void	load_textures(t_game *game);
 
 // render.c
 void	draw_map(t_game *game);
 void	draw_player(t_game *game);
 int		render_frame(t_game *game);
+void	draw_exit(t_game *game, t_draw *d);
 
 // map.c
 int		check_map(char **map, t_game *game, t_check *m);
 char	**read_map(char *path);
-void	player_pos_coin(char **map, t_check *m);
 
 // path.c
 int		check_path(char **map, t_game *game, t_check *m);
-void	flood_fill(char **map, t_check *m, int i, int j);
 
 // moving.c
 void	move_up(t_game *game, t_player *p);
@@ -132,9 +139,9 @@ void	move_left(t_game *game, t_player *p);
 void	move_right(t_game *game, t_player *p);
 
 // player.c
-void	check_collect_exit(t_game *game, t_player *p);
 void	update_player_pos(t_game *game, t_player *p);
 void	init_player(t_game *game, t_player *p, t_check *c);
+void	draw_tile(t_game *game, int y, int x);
 
 // utils.c
 void	exit_error(char *str, int map_free, t_game *game);

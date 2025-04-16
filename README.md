@@ -18,15 +18,28 @@
 
 
 
-15.04			- voir fichiers normi
-				- ajouter image autour (voir taille autorisee selon pdf)
-				- ajouter compteur graphique + terminal (voir de ou l'appel)
-				- ajouter menu (voir de ou l'appel)
-				- voir textes d'erreur
+15.04		- voir fichiers normi
+			- ajouter image autour (voir taille autorisee selon pdf) - game.c > game_init:
+					 load_textures_ui, draw_ui, load_textures_ui
+					 
+			- ajouter compteur graphique + terminal (voir de ou l'appel)
+			- ajouter menu (voir de ou l'appel)
+			- voir textes d'erreur
 
-				- ! validite map, si pas de coin !
+			- ! validite map, si pas de coin !
 
 
+16.04			OK	a adapter pour opti:	
+						- player.c:
+								draw_tile, update_player_pos
+						- render.c:		
+								render_frame 
+
+17.04			ok - maperr4 !! (sortie bloquee)
+				ok - maperr8 !! (" " dans map)
+				ok - maperr8copy3 !! ("J" dans map)
+
+				- voir 15.04 
 
 
 
@@ -42,3 +55,4 @@
 					- player.c			3				!
 					- render.c			7				
 					- utils.c			3
+					

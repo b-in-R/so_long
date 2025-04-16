@@ -1,7 +1,8 @@
 
 #include "so_long.h"
 
-
+// <- (3)check_map(map.c), load_image(game.c), main
+//		(2)game_init(game.c), check_path(path.c)
 void	exit_error(char *str, int map_free, t_game *game)
 {
 	if (map_free)
@@ -17,7 +18,7 @@ void	exit_error(char *str, int map_free, t_game *game)
 	close_game(game);
 }
 
-int	close_game(t_game *game)
+int	close_game(t_game *game)// <- exit_error(), check_collect_exit(player.c)
 {
 	mlx_destroy_window(game->mlx, game->win);
 	mlx_destroy_display(game->mlx);
@@ -26,7 +27,7 @@ int	close_game(t_game *game)
 	return (0);
 }
 
-void	free_map(char **map)
+void	free_map(char **map)// <- read_map(map.c)
 {
 	int	i;
 

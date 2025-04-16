@@ -1,7 +1,6 @@
-
 #include "so_long.h"
 
-static size_t	count_lines(char *path) // static?
+static size_t	count_lines(char *path)// <- read_map()
 {
 	int		fd;
 	size_t	count;
@@ -22,14 +21,14 @@ static size_t	count_lines(char *path) // static?
 	return (count);
 }
 
-char	**read_map(char *av)
+char	**read_map(char *av)// <- game_init(game.c)
 {
 	int		fd;
 	size_t	lines;
 	char	**map;
 	size_t	i;
 
-	lines = count_lines(av);
+	lines = count_lines(av);// -> ()
 	if (lines == 0)
 		return (NULL);
 	
@@ -50,7 +49,7 @@ char	**read_map(char *av)
 		map[i] = get_next_line(fd);
 		if (!map[i])
 		{
-			free_map(map);
+			free_map(map);// -> utils.c
 			close(fd);
 			return (NULL);
 		}
@@ -64,7 +63,7 @@ char	**read_map(char *av)
 }
 
 
-void	init_vars(t_check *m)
+void	init_vars(t_check *m)// <- check_map()
 {
 	m->i = 0;
 	m->j = 0;
@@ -85,7 +84,7 @@ void	init_vars(t_check *m)
 }
 
 
-int	check_map_size_square(char **map, t_check *m)
+int	check_map_size_square(char **map, t_check *m)// <- check_map()
 {
 	int	i;
 	int	j;
@@ -114,56 +113,31 @@ int	check_map_size_square(char **map, t_check *m)
 	return (0);
 }
 
-void	player_pos_coin(char **map, t_check *m)
-{
-	int	i;
-	int	j;
 
-	i = 1;
-	while (map[i + 1])
-	{
-		j = 1;
-		while (map[i][j + 1])
-		{
-			if (map[i][j] == 'P')
-			{
-				m->check_i_p = i;
-				m->check_j_p = j;
-			}
-			else if (map[i][j] == 'C')
-				m->tot_coin++;
-			j++;
-		}
-		i++;
-	}
-}
-
-int	check_map(char **map, t_game *game, t_check *m)
+int	check_map(char **map, t_game *game, t_check *m)// <- game_init(game.c)
 {
-	init_vars(m);
-	if (check_map_size_square(map, m) || m->height <= 1 || m->lenght <= 1)
-		exit_error("check_map_size_square", 1, game);
+	init_vars(m);// -> ()
+	if (check_map_size_square(map, m) || m->height <= 1 || m->lenght <= 1)// -> ()
+		exit_error("check_map_size_square", 1, game);// -> utils.c
 	while (map[m->i] && m->result_err == 0)
 	{
 		m->j = 0;
-		//
 		while (map[m->i][m->j] && m->result_err == 0)
 		{
 			if (map[0][m->j] != '1' || map[m->i][0] != '1' || map[m->height - 1][m->j] != '1'
 					|| map[m->i][m->lenght - 1] != '1')
-				exit_error("check_map - bord erreur", 1, game);
+				exit_error("check_map - bord erreur", 1, game);// -> utils.c
+			else if (map[m->i][m->j] != 'P' && map[m->i][m->j] != '1' && map[m->i][m->j] != '0' && map[m->i][m->j] != 'C' && map[m->i][m->j] != 'E')
+				exit_error("check_map - caract", 1, game);
 			else if (map[m->i][m->j] == 'P')
 				(m->player)++;
-			else if (map[m->i][m->j] == 'E')
-				(m->exit)++;
 			else if (map[m->i][m->j] == '0')
 				(m->n_ground)++;
 			m->j++;
 		}
-		//
 		m->i++;
 	}
-	if (m->player != 1 || m->exit != 1 || check_path(map, game, m))
-		exit_error("check_path", 1, game);
+	if (m->player != 1 || /*m->exit != 1 ||*/check_path(map, game, m))// -> path.c
+		exit_error("check_path", 1, game);// -> utils.c
 	return (m->result_err);
 }

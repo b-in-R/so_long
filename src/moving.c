@@ -1,7 +1,7 @@
 
 #include "so_long.h"
 
-void	move_up(t_game *game, t_player *p)
+void	move_up(t_game *game, t_player *p)// <- handle_input(game.c)
 {
 	int	target_y;
 	int	target_x;
@@ -20,7 +20,7 @@ void	move_up(t_game *game, t_player *p)
 	}
 }
 
-void	move_down(t_game *game, t_player *p)
+void	move_down(t_game *game, t_player *p)// <- handle_input(game.c)
 {
 	int	target_y;
 	int	target_x;
@@ -39,7 +39,7 @@ void	move_down(t_game *game, t_player *p)
 	}
 }
 
-void	move_left(t_game *game, t_player *p)
+void	move_left(t_game *game, t_player *p)// <- handle_input(game.c)
 {
 	int	target_y;
 	int	target_x;
@@ -58,7 +58,7 @@ void	move_left(t_game *game, t_player *p)
 	}
 }
 
-void	move_right(t_game *game, t_player *p)
+void	move_right(t_game *game, t_player *p)// <- handle_input(game.c)
 {
 	int	target_y;
 	int	target_x;
