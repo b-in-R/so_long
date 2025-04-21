@@ -28,7 +28,7 @@ void	read_map(char *av, t_game *game)
 	size_t	lines;
 	size_t	i;
 
-	lines = count_lines(av);// -> ()
+	lines = count_lines(av);
 	if (lines == 0)
 		return ;
 	game->map = malloc(sizeof(char *) * (lines + 1));
@@ -48,7 +48,6 @@ void	read_map(char *av, t_game *game)
 	return ;
 }
 
-
 int	check_map_size_square(char **map, t_check *m)
 {
 	int	sto_j;
@@ -64,7 +63,7 @@ int	check_map_size_square(char **map, t_check *m)
 				&& map[m->ti][m->tj] != '0' && map[m->ti][m->tj] != 'C')
 			return (1);
 		while (map[m->ti][m->tj])
-		m->tj++;
+			m->tj++;
 		if (sto_j == 0)
 			sto_j = m->tj;
 		if (m->tj != sto_j)
@@ -76,7 +75,6 @@ int	check_map_size_square(char **map, t_check *m)
 	m->height = m->ti;
 	return (0);
 }
-
 
 int	check_map(char **map, t_game *game, t_check *m)
 {
@@ -94,7 +92,7 @@ int	check_map(char **map, t_game *game, t_check *m)
 			else if (map[m->i][m->j] != 'P' && map[m->i][m->j] != '1' &&
 						map[m->i][m->j] != '0' && map[m->i][m->j] != 'C' &&
 						map[m->i][m->j] != 'E')
-				return (1);	
+				return (1);
 			else if (map[m->i][m->j] == 'P')
 				(m->player)++;
 			m->j++;

@@ -23,7 +23,6 @@ char	**copy_map(char **map, int height)
 	return (copy);
 }
 
-
 void	flood_fill(char **map, t_check *m, int i, int j)
 {
 	if (map[i][j] == '1' || map[i][j] == 'V')
@@ -79,8 +78,8 @@ int	check_path(char **map, t_game *game, t_check *m)
 	game->coin_collected = 0;
 	flood_fill(map_copy, m, m->check_i_p, m->check_j_p);
 	free_map(map_copy);
-	if (game->coin_total != m->check_coin || m->exit != 1 ||
-			game->coin_total <= 0)
+	if (game->coin_total != m->check_coin || m->exit != 1
+		|| game->coin_total <= 0)
 		return (1);
 	return (0);
 }

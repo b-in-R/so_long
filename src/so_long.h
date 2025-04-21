@@ -22,9 +22,6 @@
 # include <fcntl.h>
 # include <X11/keysym.h>
 
-# include <stdio.h>
-
-
 typedef struct s_draw
 {
 	int	x;

@@ -1,4 +1,3 @@
-
 #include "so_long.h"
 
 void	move_up(t_game *game, t_player *p)
@@ -9,7 +8,7 @@ void	move_up(t_game *game, t_player *p)
 	target_y = p->y - 1;
 	target_x = p->x;
 	if (p->moving)
-		return;
+		return ;
 	if (game->map[target_y][target_x] != '1')
 	{
 		p->direction = 'u';
@@ -28,7 +27,7 @@ void	move_down(t_game *game, t_player *p)
 	target_y = p->y + 1;
 	target_x = p->x;
 	if (p->moving)
-		return;
+		return ;
 	if (game->map[target_y][target_x] != '1')
 	{
 		p->direction = 'd';
@@ -47,7 +46,7 @@ void	move_left(t_game *game, t_player *p)
 	target_y = p->y;
 	target_x = p->x - 1;
 	if (p->moving)
-		return;
+		return ;
 	if (game->map[target_y][target_x] != '1')
 	{
 		p->direction = 'l';
@@ -66,7 +65,7 @@ void	move_right(t_game *game, t_player *p)
 	target_y = p->y;
 	target_x = p->x + 1;
 	if (p->moving)
-		return;
+		return ;
 	if (game->map[target_y][target_x] != '1')
 	{
 		p->direction = 'r';

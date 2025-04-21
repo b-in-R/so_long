@@ -47,34 +47,29 @@
 					ok	- animation exit
 					ok	- carres bleus
 
-					- controler struct et supprimer inutiles (voir dans code)
-					- supprimer bouts de codes inutiles:
+					ok - controler struct et supprimer inutiles (voir dans code)
+					ok - supprimer bouts de codes inutiles:
 						 (ex: appels exit_map / return 1)
 
-		game.c->init_map_game: 
+		ok - game.c->init_map_game: 
 					if (check_map(game->map, game, m))// -> map.c
 						exit_error("check_map", 1, game);// -> utils.c
 		
 
-		exit_error, close_game !map_free (si 0 oui, si 1 non) modif partout
+		ok - exit_error, close_game !map_free (si 0 oui, si 1 non) modif partout
 
-			fonctions avec char **map, *game:
 
-			fonctions avec char **map:
-
-				map.c:	
-							**read_map (initialisation)
-
-			fonction avec *game:
-
-				
-
-			- ajouter:
+			ok - ajouter:
 					ok	- compteur terminal
 					ok	- verifier qu'il y a un C
 
-			- segfault
+			ok - segfault
 			- norminette!
+
+			
+
+21.04:			- norminette (render.c)
+
 
 
 ===============================================================================================

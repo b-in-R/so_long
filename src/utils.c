@@ -1,6 +1,4 @@
-
 #include "so_long.h"
-
 
 void	destroy_images(t_game *game)
 {	
@@ -20,8 +18,6 @@ void	destroy_images(t_game *game)
 	mlx_destroy_image(game->mlx, game->img_coin_n_tree);
 }
 
-// <- (3)check_map(map.c), load_image(game.c), main
-//		(2)game_init(game.c), check_path(path.c)
 void	exit_error(char *str, t_game *game)
 {
 	ft_printf("Error\n");
@@ -30,7 +26,7 @@ void	exit_error(char *str, t_game *game)
 	close_game(game);
 }
 
-int	close_game(t_game *game)// <- exit_error(), check_collect_exit(player.c)
+int	close_game(t_game *game)
 {
 	mlx_destroy_window(game->mlx, game->win);
 	destroy_images(game);
@@ -38,11 +34,11 @@ int	close_game(t_game *game)// <- exit_error(), check_collect_exit(player.c)
 		mlx_destroy_display(game->mlx);
 	#endif
 	free_map(game->map);
-	exit(0);// a voir exit
+	exit(0);
 	return (0);
 }
 
-void	free_map(char **map)// <- read_map(map.c)
+void	free_map(char **map)
 {
 	int	i;
 

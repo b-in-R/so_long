@@ -1,4 +1,3 @@
-
 #include "so_long.h"
 
 int	check_extension(char *str)
@@ -8,8 +7,8 @@ int	check_extension(char *str)
 	l = ft_strlen(str);
 	if (l < 4)
 		return (1);
-	if (!(str[l - 4] == '.' && str[l - 3] == 'b' &&
-			str[l - 2] == 'e' && str[l - 1] == 'r'))
+	if (!(str[l - 4] == '.' && str[l - 3] == 'b'
+			&& str[l - 2] == 'e' && str[l - 1] == 'r'))
 		return (1);
 	return (0);
 }

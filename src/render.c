@@ -1,7 +1,7 @@
 #include "so_long.h"
 
 int	render_frame(t_game *game)
-{	
+{
 	t_draw	d;
 
 	ft_memset(&d, 0, sizeof(t_draw));
@@ -17,11 +17,10 @@ int	render_frame(t_game *game)
 	return (0);
 }
 
-
 void	draw_player(t_game *game)
 {
 	t_player	*p;
-	
+
 	p = game->player;
 	mlx_put_image_to_window(game->mlx, game->win, game->img_player,
 		p->px, p->py);
@@ -33,7 +32,7 @@ void	draw_player(t_game *game)
 void	draw_exit(t_game *game, t_draw *d)
 {
 	if (game->coin_collected == game->coin_total)
-	{	
+	{
 		mlx_put_image_to_window(game->mlx, game->win, game->img_exit_y,
 			d->px, d->py);
 		if (game->map[d->y + 1][d->x] == '1')
@@ -94,7 +93,6 @@ void	draw_floor(t_game *game, t_draw *d)
 		d->y++;
 	}
 }
-
 
 void	draw_map(t_game *game)
 {

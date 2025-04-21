@@ -1,6 +1,5 @@
 #include "so_long.h"
 
-
 int	handle_input(int key, t_game *game)
 {
 	t_player	*p;
