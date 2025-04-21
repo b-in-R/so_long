@@ -24,11 +24,12 @@
 
 typedef struct s_draw
 {
-	int	x;
-	int	y;
-	int	px;
-	int	py;
-}		t_draw;
+	int		x;
+	int		y;
+	int		px;
+	int		py;
+	char	tile;
+}			t_draw;
 
 typedef struct s_player
 {
@@ -105,7 +106,11 @@ int		handle_input(int keycode, t_game *game);
 void	draw_map(t_game *game);
 void	draw_player(t_game *game);
 int		render_frame(t_game *game);
+
+// render_utils.c
 void	draw_exit(t_game *game, t_draw *d);
+void	tile_image_coin(t_game *game, t_draw *d, int y, int x);
+void	tile_image_exit_floor(t_game *game, t_draw *d, int y, int x);
 
 // map.c
 int		check_map(char **map, t_game *game, t_check *m);
@@ -124,6 +129,7 @@ void	move_right(t_game *game, t_player *p);
 void	update_player_pos(t_game *game, t_player *p);
 void	init_player(t_game *game, t_player *p, t_check *c);
 void	draw_tile(t_game *game, int y, int x);
+void	check_collect_exit(t_game *game, t_player *p);
 
 // utils.c
 void	exit_error(char *str, t_game *game);

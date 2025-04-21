@@ -1,7 +1,7 @@
 #include "so_long.h"
 
 void	destroy_images(t_game *game)
-{	
+{
 	mlx_destroy_image(game->mlx, game->img_wall_y);
 	mlx_destroy_image(game->mlx, game->img_wall_y_tree);
 	mlx_destroy_image(game->mlx, game->img_wall_n_tree);
@@ -30,9 +30,7 @@ int	close_game(t_game *game)
 {
 	mlx_destroy_window(game->mlx, game->win);
 	destroy_images(game);
-	#ifdef __linux__
-		mlx_destroy_display(game->mlx);
-	#endif
+	mlx_destroy_display(game->mlx);
 	free_map(game->map);
 	exit(0);
 	return (0);

@@ -68,20 +68,11 @@
 
 			
 
-21.04:			- norminette (render.c)
+21.04:			ok - norminette (render.c)
 
 
+				projet fini:	-	voir MAX_ANIM_FRAME 4:
+										player.c (update_player_pos)
+										moving.c
 
-===============================================================================================
-
-	--- normi:		  fichier		n fonctions		25 lignes 		80 col		normi ok
-
-					- main.c			1											ok
-					- game.c			5 				!				!
-					- map.c				6				!				!
-					- moving.c			4											ok
-					- path.c			3
-					- player.c			3				!
-					- render.c			7				
-					- utils.c			3
-					
+								-	Makefile

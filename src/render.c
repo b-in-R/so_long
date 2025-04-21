@@ -29,26 +29,6 @@ void	draw_player(t_game *game)
 			p->px, p->py);
 }
 
-void	draw_exit(t_game *game, t_draw *d)
-{
-	if (game->coin_collected == game->coin_total)
-	{
-		mlx_put_image_to_window(game->mlx, game->win, game->img_exit_y,
-			d->px, d->py);
-		if (game->map[d->y + 1][d->x] == '1')
-			mlx_put_image_to_window(game->mlx, game->win,
-				game->img_exit_y_tree, d->px, d->py);
-	}
-	else
-	{
-		mlx_put_image_to_window(game->mlx, game->win, game->img_exit_n,
-			d->px, d->py);
-		if (game->map[d->y + 1][d->x] == '1')
-			mlx_put_image_to_window(game->mlx, game->win,
-				game->img_exit_n_tree, d->px, d->py);
-	}
-}
-
 void	draw_objs(t_game *game, t_draw *d)
 {
 	if (game->map[d->y][d->x] == '1')

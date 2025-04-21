@@ -12,7 +12,6 @@ SRC_DIR = src
 GNL_DIR = gnl
 
 SRCS = $(wildcard $(SRC_DIR)/*.c)
-# $(wildcard *.c)
 
 OBJS = $(SRCS:.c=.o)
 
