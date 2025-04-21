@@ -6,7 +6,7 @@ char	**copy_map(char **map, int height)
 	int		i;
 
 	copy = ft_calloc(height + 1, sizeof(char *));
-	if (!copy)// a voir
+	if (!copy)
 		return (NULL);
 	i = 0;
 	while (i < height)
@@ -24,7 +24,7 @@ char	**copy_map(char **map, int height)
 }
 
 
-void	flood_fill(char **map, t_check *m, int i, int j)// <- check_path()
+void	flood_fill(char **map, t_check *m, int i, int j)
 {
 	if (map[i][j] == '1' || map[i][j] == 'V')
 		return ;
@@ -39,48 +39,48 @@ void	flood_fill(char **map, t_check *m, int i, int j)// <- check_path()
 	flood_fill(map, m, i, j - 1);
 }
 
-void	pos_player_exit_ncoin(char **map, t_check *m, t_game *game)// <- check_path()
+void	pos_player_exit_ncoin(char **map, t_check *m, t_game *game)
 {
-	int	i;
-	int	j;
-
-	i = 1;
-	while (map[i + 1])
+	m->temp_i = 1;
+	while (map[m->temp_i + 1])
 	{
-		j = 1;
-		while (map[i][j + 1])
+		m->temp_j = 1;
+		while (map[m->temp_i][m->temp_j + 1])
 		{
-			if (map[i][j] == 'P')
+			if (map[m->temp_i][m->temp_j] == 'P')
 			{
-				m->check_i_p = i;
-				m->check_j_p = j;
+				m->check_i_p = m->temp_i;
+				m->check_j_p = m->temp_j;
 			}
-			else if (map[i][j] == 'C')
-				m->tot_coin++;
-			else if (map[i][j] == 'E')
+			else if (map[m->temp_i][m->temp_j] == 'C')
+				game->coin_total++;
+			else if (map[m->temp_i][m->temp_j] == 'E')
 			{
-				game->exit_x = j;
-				game->exit_y = i;
+				game->exit_x = m->temp_j;
+				game->exit_y = m->temp_i;
 			}
-			j++;
+			m->temp_j++;
 		}
-		i++;
+		m->temp_i++;
 	}
 }
 
-int	check_path(char **map, t_game *game, t_check *m)// <- check_map(map.c)
+int	check_path(char **map, t_game *game, t_check *m)
 {
 	char	**map_copy;
 
 	map_copy = copy_map(map, m->height);
 	if (!map_copy)
-		exit_error("check_path - copy_map", 1, game);
-	pos_player_exit_ncoin(map, m, game);// -> ()
-	game->coin_total = m->tot_coin;
+	{
+		free_map(map_copy);
+		return (1);
+	}
+	pos_player_exit_ncoin(map, m, game);
 	game->coin_collected = 0;
-	flood_fill(map_copy, m, m->check_i_p, m->check_j_p);// -> ()
+	flood_fill(map_copy, m, m->check_i_p, m->check_j_p);
 	free_map(map_copy);
-	if (m->tot_coin != m->check_coin || m->exit != 1)
+	if (game->coin_total != m->check_coin || m->exit != 1 ||
+			game->coin_total <= 0)
 		return (1);
 	return (0);
 }

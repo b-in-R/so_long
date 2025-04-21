@@ -1,7 +1,7 @@
 
 #include "so_long.h"
 
-void	move_up(t_game *game, t_player *p)// <- handle_input(game.c)
+void	move_up(t_game *game, t_player *p)
 {
 	int	target_y;
 	int	target_x;
@@ -15,12 +15,12 @@ void	move_up(t_game *game, t_player *p)// <- handle_input(game.c)
 		p->direction = 'u';
 		p->moving = 1;
 		p->anim_frame = 0;
-		p->targ_py = p->py - TILE_SIZE;
 		game->moves++;
+		ft_printf("%i\n", game->moves);
 	}
 }
 
-void	move_down(t_game *game, t_player *p)// <- handle_input(game.c)
+void	move_down(t_game *game, t_player *p)
 {
 	int	target_y;
 	int	target_x;
@@ -34,12 +34,12 @@ void	move_down(t_game *game, t_player *p)// <- handle_input(game.c)
 		p->direction = 'd';
 		p->moving = 1;
 		p->anim_frame = 0;
-		p->targ_py = p->py + TILE_SIZE;
 		game->moves++;
+		ft_printf("%i\n", game->moves);
 	}
 }
 
-void	move_left(t_game *game, t_player *p)// <- handle_input(game.c)
+void	move_left(t_game *game, t_player *p)
 {
 	int	target_y;
 	int	target_x;
@@ -53,12 +53,12 @@ void	move_left(t_game *game, t_player *p)// <- handle_input(game.c)
 		p->direction = 'l';
 		p->moving = 1;
 		p->anim_frame = 0;
-		p->targ_px = p->px - TILE_SIZE;
 		game->moves++;
+		ft_printf("%i\n", game->moves);
 	}
 }
 
-void	move_right(t_game *game, t_player *p)// <- handle_input(game.c)
+void	move_right(t_game *game, t_player *p)
 {
 	int	target_y;
 	int	target_x;
@@ -72,7 +72,7 @@ void	move_right(t_game *game, t_player *p)// <- handle_input(game.c)
 		p->direction = 'r';
 		p->moving = 1;
 		p->anim_frame = 0;
-		p->targ_px = p->px + TILE_SIZE;
 		game->moves++;
+		ft_printf("%i\n", game->moves);
 	}
 }

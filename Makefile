@@ -22,6 +22,8 @@ GNL_A = $(GNL_DIR)/gnl.a
 MLX_FLAGS = -L$(MLX_DIR) -lmlx -L/usr/lib -lXext -lX11 -lm -lbsd -lz
 INCLUDES = -I$(LIBFT_DIR) -I$(GNL_DIR) -I$(MLX_DIR) -I$(SRC_DIR) -I/usr/include
 
+**SANITIZE_FLAGS = -fsanitize=address -g**
+
 all: $(NAME)
 
 $(NAME): $(OBJS) $(LIBFT_A) $(GNL_A)
@@ -48,4 +50,7 @@ fclean: clean
 
 re:	fclean all
 
-.PHONY: all clean fclean re
+**fsan: CFLAGS += $(SANITIZE_FLAGS)
+fsan: fclean $(NAME)
+
+.PHONY: all clean fclean re **fsan**

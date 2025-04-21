@@ -6,15 +6,13 @@ void	init_player(t_game *game, t_player *p, t_check *c)// <- game_init(game.c)
 	p->y = c->check_i_p;
 	p->px = p->x * TILE_SIZE;
 	p->py = p->y * TILE_SIZE;
-	p->targ_px = p->px;
-	p->targ_py = p->py;
-	p->anim_frame = 0;
 	p->moving = 0;
 	p->direction = 'S';
 	game->map[p->y][p->x] = '0';
 }
 
-// ADAPTER (t_draw etc)
+
+
 void	draw_tile(t_game *game, int y, int x)// <- (2)update_player_pos(), render_frame(render.c)
 {
 	t_draw	d;
@@ -22,11 +20,12 @@ void	draw_tile(t_game *game, int y, int x)// <- (2)update_player_pos(), render_f
 	int		py;
 	char	tile;
 
-	px = x * TILE_SIZE + game->offset_x;
-	py = y * TILE_SIZE + game->offset_y;
+	ft_memset(&d, 0, sizeof(t_draw));
+	px = x * TILE_SIZE;
+	py = y * TILE_SIZE;
 	tile = game->map[y][x];
 
-
+/*****************************************************************************/
 	if (tile == '1')
 	{
 		mlx_put_image_to_window(game->mlx, game->win, game->img_wall_y, px, py);
@@ -55,6 +54,7 @@ void	draw_tile(t_game *game, int y, int x)// <- (2)update_player_pos(), render_f
 		d.py = py;
 		draw_exit(game, &d); // -> render.c 
 	}
+/*****************************************************************************/
 	else if (tile == '0')
 	{
 		if (y < game->height && game->map[y + 1][x] == '1')
@@ -63,7 +63,6 @@ void	draw_tile(t_game *game, int y, int x)// <- (2)update_player_pos(), render_f
 			mlx_put_image_to_window(game->mlx, game->win, game->img_floor, px, py);
 	}
 
-	// Enfin, dessine le joueur si présent à cet endroit
 	if (game->player->x == x && game->player->y == y)
 	{
 		mlx_put_image_to_window(game->mlx, game->win, game->img_player, px, py);
@@ -81,31 +80,15 @@ void	check_collect_exit(t_game *game, t_player *p)// <- ()
 	{
 		*tile = 'K';
 		game->coin_collected++;
-		// ajouter animation, compteur de coin etc
 	}
-	else if (*tile == 'E')
-	{
-		if (game->coin_collected == game->coin_total)
-		{
-			// ajouter animation, texte victoire etc
-			close_game(game);// -> utils.c
-		}
-		else
-		{
-			// animation qu'il faut ramasser les coin?
-		}
-	}
+	else if (*tile == 'E' && game->coin_collected == game->coin_total)
+		close_game(game);
 }
-
 
 void	update_player_pos(t_game *game, t_player *p)// <- render_frame(render.c)
 {
-	int	old_x;
-	int	old_y;
-
 	if (!p->moving)
 		return ;
-
 	if (p->anim_frame < MAX_ANIM_FRAME)
 	{
 		if (p->direction == 'r')
@@ -120,22 +103,16 @@ void	update_player_pos(t_game *game, t_player *p)// <- render_frame(render.c)
 	}
 	else
 	{
-		old_x = p->x;
-		old_y = p->y;
-
+		p->old_x = p->x;
+		p->old_y = p->y;
 		p->x = p->px / TILE_SIZE;
 		p->y = p->py / TILE_SIZE;
-
-		draw_tile(game, old_y, old_x);// -> ()
-		draw_tile(game, p->y, p->x);// -> ()
-		/*
-		if (game->map[old_y][old_x] == 'P')
-			game->map[old_y][old_x] = '0';
-		*/
+		draw_tile(game, p->old_y, p->old_x);
+		draw_tile(game, p->y, p->x);
 		p->moving = 0;
 		p->anim_frame = 0;
 		p->direction = 's';
-
-		check_collect_exit(game, p);// -> ()
+		check_collect_exit(game, p);
 	}
 }
+/*****************************************************************************/
