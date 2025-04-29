@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rabiner <rabiner@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/28 18:59:38 by rabiner           #+#    #+#             */
+/*   Updated: 2025/04/28 20:47:01 by rabiner          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long.h"
 
 static size_t	count_lines(char *path)
@@ -22,7 +34,7 @@ static size_t	count_lines(char *path)
 	return (count);
 }
 
-void	read_map(char *av, t_game *game)
+int	read_map(char *av, t_game *game)
 {
 	int		fd;
 	size_t	lines;
@@ -30,10 +42,10 @@ void	read_map(char *av, t_game *game)
 
 	lines = count_lines(av);
 	if (lines == 0)
-		return ;
+		return (0);
 	game->map = malloc(sizeof(char *) * (lines + 1));
 	if (!game->map)
-		return ;
+		return (0);
 	fd = open(av, O_RDONLY);
 	i = 0;
 	while (i < lines)
@@ -45,7 +57,7 @@ void	read_map(char *av, t_game *game)
 	}
 	game->map[i] = NULL;
 	close(fd);
-	return ;
+	return (1);
 }
 
 int	check_map_size_square(char **map, t_check *m)

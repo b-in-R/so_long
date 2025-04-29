@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   so_long.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rabiner <rabiner@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/28 18:59:12 by rabiner           #+#    #+#             */
+/*   Updated: 2025/04/28 20:49:22 by rabiner          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
@@ -114,7 +126,7 @@ void	tile_image_exit_floor(t_game *game, t_draw *d, int y, int x);
 
 // map.c
 int		check_map(char **map, t_game *game, t_check *m);
-void	read_map(char *av, t_game *game);
+int		read_map(char *av, t_game *game);
 
 // path.c
 int		check_path(char **map, t_game *game, t_check *m);

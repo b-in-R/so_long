@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rabiner <rabiner@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/28 18:59:04 by rabiner           #+#    #+#             */
+/*   Updated: 2025/04/29 11:05:58 by rabiner          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long.h"
 
 void	destroy_images(t_game *game)
@@ -31,6 +43,7 @@ int	close_game(t_game *game)
 	mlx_destroy_window(game->mlx, game->win);
 	destroy_images(game);
 	mlx_destroy_display(game->mlx);
+	free(game->mlx);
 	free_map(game->map);
 	exit(0);
 	return (0);

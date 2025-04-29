@@ -1,17 +1,31 @@
-
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: rabiner <rabiner@student.42.fr>            +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2025/04/28 18:58:05 by rabiner           #+#    #+#              #
+#    Updated: 2025/04/29 11:28:23 by rabiner          ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
 NAME = so_long
 
 CC = gcc
 RM = rm -f
-CFLAGS = -Wall -Wextra -O3
+CFLAGS = -Wall -Wextra -Werror
 
-MLX_DIR = mlx_linux
+MLX_DIR = minilibx-linux
 LIBFT_DIR = libft
 SRC_DIR = src
 GNL_DIR = gnl
 
-SRCS = $(wildcard $(SRC_DIR)/*.c)
+SRCS = game.c main.c map.c moving.c \
+		path.c player.c render_utils.c \
+		render.c utils.c
+
+SRCS := $(addprefix $(SRC_DIR)/, $(SRCS))
 
 OBJS = $(SRCS:.c=.o)
 
@@ -21,7 +35,7 @@ GNL_A = $(GNL_DIR)/gnl.a
 MLX_FLAGS = -L$(MLX_DIR) -lmlx -L/usr/lib -lXext -lX11 -lm -lbsd -lz
 INCLUDES = -I$(LIBFT_DIR) -I$(GNL_DIR) -I$(MLX_DIR) -I$(SRC_DIR) -I/usr/include
 
-**SANITIZE_FLAGS = -fsanitize=address -g**
+SANITIZE_FLAGS = -fsanitize=address -g
 
 all: $(NAME)
 
@@ -49,7 +63,7 @@ fclean: clean
 
 re:	fclean all
 
-**fsan: CFLAGS += $(SANITIZE_FLAGS)
+fsan: CFLAGS += $(SANITIZE_FLAGS)
 fsan: fclean $(NAME)
 
-.PHONY: all clean fclean re **fsan**
+.PHONY: all clean fclean re fsan

@@ -1,0 +1,10 @@
+.gitignore
+so_long
+*.o
+libft.a
+a.out
+bonus
+mlx copy.h
+*.a
+minilibx-linux
+README.md

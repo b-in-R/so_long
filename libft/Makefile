@@ -1,3 +1,14 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: rabiner <rabiner@student.42.fr>            +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2025/04/28 18:59:57 by rabiner           #+#    #+#              #
+#    Updated: 2025/04/28 18:59:58 by rabiner          ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
 NAME = libft.a
 
@@ -6,7 +17,9 @@ AR = ar rcs
 RM = rm -f
 CFLAGS = -Wall -Wextra -Werror
 
-SRCS = $(wildcard *.c)
+SRCS = ft_calloc.c ft_memset.c ft_printf_nbrs.c \
+		ft_printf_write.c ft_printf.c ft_strchr.c \
+		ft_strdup.c ft_strjoin.c ft_strlen.c
 
 OBJS = $(SRCS:.c=.o)
 

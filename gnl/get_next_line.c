@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rabiner <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: rabiner <rabiner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 16:29:54 by rabiner           #+#    #+#             */
-/*   Updated: 2024/12/08 16:30:02 by rabiner          ###   ########.fr       */
+/*   Updated: 2025/04/28 20:01:52 by rabiner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,24 +113,8 @@ char	*get_next_line(int fd)
 	return (line);
 }
 
-/*		//	pour bonus - a voir si autre chose a modifier	//
-char	*get_next_line(int fd)
-{
-	static char	*buffer[1024];
-	char		*line;
-
-	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
-		return (NULL);
-	buffer[fd] = read_file(fd, buffer[fd]);
-	if (!buffer[fd])
-		return (NULL);
-	line = ft_line(buffer[fd]);
-	buffer[fd] = ft_next(buffer[fd]);
-	return (line);
-}
-*/
-
 /*
+#include <stdio.h>
 int	main(int ac, char **av)
 {
 	int	fd;

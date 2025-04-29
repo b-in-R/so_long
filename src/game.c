@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   game.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rabiner <rabiner@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/28 18:59:46 by rabiner           #+#    #+#             */
+/*   Updated: 2025/04/28 20:51:52 by rabiner          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long.h"
 
 int	handle_input(int key, t_game *game)
@@ -7,13 +19,13 @@ int	handle_input(int key, t_game *game)
 	p = game->player;
 	if (key == XK_Escape)
 		close_game(game);
-	else if (key == XK_w || key == XK_Up)
+	else if (key == XK_w)
 		move_up(game, p);
-	else if (key == XK_s || key == XK_Down)
+	else if (key == XK_s)
 		move_down(game, p);
-	else if (key == XK_a || key == XK_Left)
+	else if (key == XK_a)
 		move_left(game, p);
-	else if (key == XK_d || key == XK_Right)
+	else if (key == XK_d)
 		move_right(game, p);
 	return (0);
 }
@@ -67,7 +79,11 @@ void	game_init(t_game *game, char *av)
 	int			map_height;
 
 	ft_memset(&m, 0, sizeof(t_check));
-	read_map(av, game);
+	if (!read_map(av, game))
+	{
+		ft_printf("Error\nInvalid map\n");
+		exit (1);
+	}
 	game->mlx = mlx_init();
 	map_width = ft_strlen(game->map[0]) * TILE_SIZE;
 	map_height = get_map_height(game->map) * TILE_SIZE;
